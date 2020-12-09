@@ -1,0 +1,27 @@
+version: '3.1'
+services:
+
+  postgres:
+    build: .
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: asgard
+      POSTGRES_USER: asgard
+      POSTGRES_DB: asgard
+    volumes:
+      - ./:/sql
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-asgard@mtes}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-asgard}
+    volumes:
+       - pgadmin:/root/.pgadmin
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    restart: unless-stopped
+
+volumes:
+  pgadmin:

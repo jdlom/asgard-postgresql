@@ -19,6 +19,11 @@ Se référer à la documentation.
 
 L'extension PostgreSQL ASGARD est un logiciel libre publié sous licence CeCILL-B.
 
+## Test
+Nécessite d'avoir un compte docker
+
+[![Essayer avec PWD](https://cdn.rawgit.com/play-with-docker/stacks/cff22438/assets/images/button.png)](http://play-with-docker.com?stack=https://raw.githubusercontent.com/jdlom/asgard-postgresql/test/docker-compose.yml)
+
 ## Crédits
 
 République Française, 2020.
