@@ -6,4 +6,5 @@ FROM postgres:${POSTGRES_VERSION}
 LABEL org.opencontainers.image.source https://github.com/jdlom/asgard-postgresql
 ARG ASGARD_VERSION
 
-COPY asgard--${ASGARD_VERSION}.sql /docker-entrypoint-initdb.d
+COPY asgard* /extension/
+RUN /bin/bash -c "mv /extension/* $(ls -d /usr/share/postgresql/*/extension)"
