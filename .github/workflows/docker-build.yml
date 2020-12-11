@@ -7,16 +7,17 @@ on:
     branches: [ master ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        postgres_version: [9.5, 12, 13]
+        asgard_version: [1.2.2]
     steps:
     - uses: actions/checkout@v2
   
     - name: Branch name
-      run: echo running on branch ${GITHUB_REF##*/}
+      run: echo running on branch ${GITHUB_REF##*/} for ${{matrix.postgres_version}} and asgard ${{matrix.asgard_version}}
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
@@ -37,5 +38,8 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
+        build-args: |
+            POSTGRES_VERSION=${{matrix.postgres_version}}
+            ASGARD_VERSION=${{matrix.postgres_version}}
         tags: |
-          ghcr.io/jdlom/asgard-postgresql/asgard:test
+          ghcr.io/jdlom/asgard-postgresql/asgard:pg${{matrix.postgres_version}}-${{matrix.asgard_version}}
